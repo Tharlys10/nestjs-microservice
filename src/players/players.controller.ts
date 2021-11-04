@@ -10,7 +10,7 @@ import {
 
 import { ICreatePlayerDTO } from './dtos/ICreatePlayerDTO';
 import { IUpdatePlayerDTO } from './dtos/IUpdatePlayerDTO';
-import { Player } from './model/player.model';
+import { Player } from './models/player.model';
 import { PlayersService } from './players.service';
 
 @Controller('players')
