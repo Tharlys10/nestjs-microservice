@@ -17,8 +17,15 @@ export class PlayersService {
     private playerModel: Model<Player>,
   ) {}
 
-  public async show(): Promise<Player[]> {
-    return await this.playerModel.find();
+  public async show(amount: number, page: number): Promise<Player[]> {
+    const players = await this.playerModel
+      .find()
+      .skip((page - 1) * amount)
+      .limit(amount);
+
+    console.log(amount);
+
+    return players;
   }
 
   public async index(id: string): Promise<Player> {

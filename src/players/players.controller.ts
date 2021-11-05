@@ -6,11 +6,15 @@ import {
   Param,
   Post,
   Put,
+  Query,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 
 import { ICreatePlayerDTO } from './dtos/ICreatePlayerDTO';
 import { IUpdatePlayerDTO } from './dtos/IUpdatePlayerDTO';
 import { Player } from './models/player.model';
+import { PlayersValidationParamsPagination } from './pipes/playersValidationParamsPagination.pipe';
 import { PlayersService } from './players.service';
 
 @Controller('players')
@@ -18,8 +22,11 @@ export class PlayersController {
   constructor(private readonly playersService: PlayersService) {}
 
   @Get('/')
-  public async show(): Promise<Player[]> {
-    const players = await this.playersService.show();
+  public async show(
+    @Query('amount', PlayersValidationParamsPagination) amount: number,
+    @Query('page', PlayersValidationParamsPagination) page: number,
+  ): Promise<Player[]> {
+    const players = await this.playersService.show(amount, page);
 
     return players;
   }
@@ -39,6 +46,7 @@ export class PlayersController {
   }
 
   @Post('/')
+  @UsePipes(ValidationPipe)
   public async create(@Body() player: ICreatePlayerDTO): Promise<Player> {
     const player_create = await this.playersService.create(player);
 
@@ -46,6 +54,7 @@ export class PlayersController {
   }
 
   @Put('/:id')
+  @UsePipes(ValidationPipe)
   public async update(
     @Param('id') id: string,
     @Body() player: Omit<IUpdatePlayerDTO, 'id'>,
