@@ -14,7 +14,7 @@ import {
 import { ICreatePlayerDTO } from './dtos/ICreatePlayerDTO';
 import { IUpdatePlayerDTO } from './dtos/IUpdatePlayerDTO';
 import { Player } from './models/player.model';
-import { PlayersValidationParamsPagination } from './pipes/playersValidationParamsPagination.pipe';
+import { PlayersValidationParamsPagination } from '../../shared/pipes/playersValidationParamsPagination.pipe';
 import { PlayersService } from './players.service';
 
 @Controller('players')
@@ -47,8 +47,14 @@ export class PlayersController {
 
   @Post('/')
   @UsePipes(ValidationPipe)
-  public async create(@Body() player: ICreatePlayerDTO): Promise<Player> {
-    const player_create = await this.playersService.create(player);
+  public async create(
+    @Body() { name, email, phone_number }: ICreatePlayerDTO,
+  ): Promise<Player> {
+    const player_create = await this.playersService.create({
+      name,
+      email,
+      phone_number,
+    });
 
     return player_create;
   }
@@ -57,14 +63,13 @@ export class PlayersController {
   @UsePipes(ValidationPipe)
   public async update(
     @Param('id') id: string,
-    @Body() player: Omit<IUpdatePlayerDTO, 'id'>,
+    @Body() { name, email, phone_number }: IUpdatePlayerDTO,
   ): Promise<Player> {
-    const player_payload: IUpdatePlayerDTO = {
-      id,
-      ...player,
-    };
-
-    const player_update = await this.playersService.update(player_payload);
+    const player_update = await this.playersService.update(id, {
+      name,
+      email,
+      phone_number,
+    });
 
     return player_update;
   }

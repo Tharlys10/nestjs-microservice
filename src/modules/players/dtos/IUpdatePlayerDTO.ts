@@ -2,9 +2,6 @@ import { IsEmail, IsNotEmpty } from 'class-validator';
 
 class IUpdatePlayerDTO {
   @IsNotEmpty()
-  id: string;
-
-  @IsNotEmpty()
   name: string;
 
   @IsEmail()

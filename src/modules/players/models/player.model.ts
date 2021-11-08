@@ -4,7 +4,7 @@ const PlayerSchema = new Schema(
   {
     name: String,
     email: { type: String, unique: true },
-    phone_number: { type: String, unique: true },
+    phone_number: String,
     avatar: String,
     ranking: String,
     position_ranking: Number,

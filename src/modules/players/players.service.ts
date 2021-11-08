@@ -68,12 +68,10 @@ export class PlayersService {
     return player_create;
   }
 
-  public async update({
-    id,
-    name,
-    email,
-    phone_number,
-  }: IUpdatePlayerDTO): Promise<Player> {
+  public async update(
+    id: string,
+    { name, email, phone_number }: IUpdatePlayerDTO,
+  ): Promise<Player> {
     const player_already_exist = await this.playerModel.findById(id);
 
     if (!player_already_exist) {
