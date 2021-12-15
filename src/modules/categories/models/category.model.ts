@@ -15,7 +15,7 @@ const CategorySchema = new Schema(
     players: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'players',
+        ref: 'Player',
       },
     ],
   },

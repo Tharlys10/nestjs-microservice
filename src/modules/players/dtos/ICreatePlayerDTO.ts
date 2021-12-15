@@ -1,13 +1,14 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsEmail } from 'class-validator';
 
 class ICreatePlayerDTO {
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'name is required' })
   name: string;
 
-  @IsEmail()
+  @IsEmail({ message: 'email invalid' })
+  @IsNotEmpty({ message: 'email is required' })
   email: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'phone number is required' })
   phone_number: string;
 }
 

@@ -65,4 +65,18 @@ export class CategoriesController {
 
     return category;
   }
+
+  @Post('/:id_category/player/:id_player')
+  @UsePipes(ValidationPipe)
+  public async setPlayerInCategory(
+    @Param('id_category') id_category: string,
+    @Param('id_player') id_player: string,
+  ): Promise<Category> {
+    const category = await this.categoriesService.setPlayerInCategory(
+      id_category,
+      id_player,
+    );
+
+    return category;
+  }
 }
