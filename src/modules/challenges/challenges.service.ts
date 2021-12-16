@@ -21,6 +21,30 @@ export class ChallengesService {
     private readonly categoryModel: Model<Category>,
   ) {}
 
+  public async show(amount: number, page: number): Promise<Challenge[]> {
+    const challenges = this.challengeModel
+      .find()
+      .populate('players')
+      .populate('category')
+      .populate('requester')
+      .skip((page - 1) * amount)
+      .limit(amount);
+
+    return challenges;
+  }
+
+  public async indexByRequest(id_requester: string): Promise<Challenge[]> {
+    const challenges = this.challengeModel
+      .find()
+      .where('request')
+      .in([id_requester])
+      .populate('players')
+      .populate('category')
+      .populate('requester');
+
+    return challenges;
+  }
+
   public async create({
     date_time_challenge,
     id_requester,
@@ -69,8 +93,8 @@ export class ChallengesService {
       status: ChallengeStatus.PENDING,
       date_time_request: new Date(),
       date_time_response: null,
-      id_requester,
-      id_category,
+      requester: id_requester,
+      category: id_category,
       players,
     });
 

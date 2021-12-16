@@ -8,8 +8,8 @@ const ChallengeSchema = new Schema(
     status: { type: String },
     date_time_request: { type: Date },
     date_time_response: { type: Date, isNull: true },
-    id_requester: { type: Schema.Types.ObjectId, ref: 'Player' },
-    id_category: { type: Schema.Types.ObjectId, ref: 'Category' },
+    requester: { type: Schema.Types.ObjectId, ref: 'Player' },
+    category: { type: Schema.Types.ObjectId, ref: 'Category' },
     players: [
       {
         type: Schema.Types.ObjectId,
@@ -25,8 +25,8 @@ interface Challenge extends Document {
   status: ChallengeStatus;
   date_time_request: Date;
   date_time_response: Date | null;
-  id_requester: Player;
-  id_category: Category;
+  requester: Player;
+  category: Category;
   players: Player[];
 }
 
