@@ -9,6 +9,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { PlayersValidationParamsPagination } from 'src/shared/pipes/playersValidationParamsPagination.pipe';
 
 import { CategoriesService } from './categories.service';
@@ -17,6 +18,7 @@ import { IUpdateCategoryDTO } from './dtos/IUpdateCategoryDTO';
 import { Category } from './models/category.model';
 
 @Controller('categories')
+@ApiTags('Categories')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 

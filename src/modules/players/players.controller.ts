@@ -16,8 +16,10 @@ import { IUpdatePlayerDTO } from './dtos/IUpdatePlayerDTO';
 import { Player } from './models/player.model';
 import { PlayersValidationParamsPagination } from '../../shared/pipes/playersValidationParamsPagination.pipe';
 import { PlayersService } from './players.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('players')
+@ApiTags('Players')
 export class PlayersController {
   constructor(private readonly playersService: PlayersService) {}
 

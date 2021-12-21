@@ -8,12 +8,14 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { PlayersValidationParamsPagination } from 'src/shared/pipes/playersValidationParamsPagination.pipe';
 import { ChallengesService } from './challenges.service';
 import { ICreateChallengeDTO } from './dtos/ICreateChallengeDTO';
 import { Challenge } from './models/challenge.model';
 
 @Controller('challenges')
+@ApiTags('Challenges')
 export class ChallengesController {
   constructor(private readonly challengeService: ChallengesService) {}
 
